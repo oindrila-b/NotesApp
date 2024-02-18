@@ -12,4 +12,5 @@ class Note(models.Model):
 
     title = models.CharField(max_length=200)
     content = models.TextField()
+    version = models.AutoField()
     priority = models.CharField(max_length=1, choices=PRIORITY_MODEL)
