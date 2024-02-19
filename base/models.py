@@ -12,5 +12,10 @@ class Note(models.Model):
 
     title = models.CharField(max_length=200)
     content = models.TextField()
-    version = models.AutoField()
+    version = models.IntegerField(default=0)
     priority = models.CharField(max_length=1, choices=PRIORITY_MODEL)
+
+
+class VersionHistory(models.Model):
+    note_id = models.IntegerField()
+    notes = models.ManyToManyField(Note)
