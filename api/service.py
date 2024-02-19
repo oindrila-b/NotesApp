@@ -18,13 +18,9 @@ def getNoteById(note_id):
 
 def addNewNote(data):
     serializer = NoteSerializer(data=data)
+    VersionHistory.objects.all().delete()
     if serializer.is_valid():
         serializer.save()
-        print(serializer.data)
-        new_version = VersionHistory(note_id=serializer.data['id'])
-        new_version.notes.add(Note.objects.get(id=serializer.data['id']))
-        new_version.save()
-        print(new_version)
     else:
         return serializer.errors
     return '1'
@@ -56,4 +52,4 @@ def deleteNoteByID(note_id):
 def getAllVersionsNoteByID():
     notes = VersionHistory.objects.all()
     version_serializer = VersionHistorySerializer(notes, many=True)
-    return version_serializer.data
+    return version_serializer.data[0]['notes']
