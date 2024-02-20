@@ -11,7 +11,8 @@ def getAllNotesFromDB():
 
 
 def getNoteById(note_id):
-    notes = Note.objects.all().filter(id=note_id).first()
+    notes = Note.objects.all().filter(id=note_id)
+    print(notes)
     if notes is None:
         return -1
     else:

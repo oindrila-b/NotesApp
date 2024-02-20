@@ -9,5 +9,7 @@ urlpatterns = [
     path('notes/delete', views.deleteAll),
     path('notes/delete/<int:id>', views.deleteByID),
     path('versions', views.getNotesVersionHistory),
-    path('versions/<int:id>', views.getNotesVersionHistoryByID)
+    path('versions/<int:id>', views.getNotesVersionHistoryByID),
+    path('login/', views.user_login, name='login'),
+    path('signup/', views.user_signup, name='signup'),
 ]

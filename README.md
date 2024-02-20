@@ -16,7 +16,6 @@ It uses the following :
  - Getting All Notes
  - Getting a specific note by ID,
  - Get all the versions of a specific note
- - Sharing a note
 
 
 ## API Endpoints :
@@ -24,6 +23,8 @@ It uses the following :
 The application runs on the port : `http://127.0.0.1:8000/`
 
 Endpoints  : 
+ - `http://127.0.0.1:8000/login` - Request Type : `POST`. Shows a login screen to authenticate a user, after which the user can create notes.
+ - `http://127.0.0.1:8000/signup` - Request Type : `POST`. Shows a signup screen to authenticate a user, after which the user can create notes.
  - `http://127.0.0.1:8000/notes` - Request Type : `GET`. Fetches all the notes stored by the user in the DB. If the user has no notes, it returns an empty query set.
 
  - `http://127.0.0.1:8000/notes/create` - Request Type : `POST`. Allows a Logged-in user to create a new note and store it in the DB. Format to add new note :
@@ -70,6 +71,7 @@ Endpoints  :
  - `http://127.0.0.1:8000/notes/delete/{id}` -  Request Type : `DELETE`. Deletes a note with a specific ID. If the ID is not present, it will send a `400` status response with a message.
  - `http://127.0.0.1:8000/notes/versions` - Request Type : `GET`. Fetches all the versions of all the notes the authenticated user has created.
  - `http://127.0.0.1:8000/notes/versions/{id}` - Request Type : `GET`. Fetches all the versions of a note having a specific ID. If the ID is present it returns the list of version changes. Other-wise it returns a `400` status with a message.
+ - 
 
 
 ## How to run the application in you local system :
