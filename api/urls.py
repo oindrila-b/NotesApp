@@ -8,5 +8,6 @@ urlpatterns = [
     path('notes/update/<int:id>', views.updateNote),
     path('notes/delete', views.deleteAll),
     path('notes/delete/<int:id>', views.deleteByID),
-    path('versions', views.getNotesVersionHistory)
+    path('versions', views.getNotesVersionHistory),
+    path('versions/<int:id>', views.getNotesVersionHistoryByID)
 ]

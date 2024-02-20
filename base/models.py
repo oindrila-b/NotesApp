@@ -18,4 +18,5 @@ class Note(models.Model):
 
 class VersionHistory(models.Model):
     note_id = models.IntegerField()
-    notes = models.ManyToManyField(Note)
+    version = models.IntegerField(default=0)
+    notes = models.JSONField(default=list)

@@ -13,38 +13,59 @@ def getAllNotes(request):
 @api_view(['GET'])
 def getNoteByID(request, id):
     note = getNoteById(id)
-    return Response(note)
+    if note == -1:
+        return Response("Unable to find note with the given ID", status=status.HTTP_400_BAD_REQUEST)
+    else:
+        return Response(note, status=status.HTTP_200_OK)
 
 
 @api_view(['POST'])
 def addNote(request):
-    new_data = addNewNote(request.data)
-    if new_data == '1':
+    response = addNewNote(request.data)
+    if response == 1:
         return Response("Successfully Created New Note", status=status.HTTP_200_OK)
     else:
-        return Response(new_data, status=status.HTTP_400_BAD_REQUEST)
+        return Response(response, status=status.HTTP_400_BAD_REQUEST)
 
 
 @api_view(['PATCH'])
 def updateNote(request, id):
-    updated_note = updateNoteData(request.data, id)
-    return Response(updated_note)
+    response = updateNoteData(request.data, id)
+    if response == -1:
+        return Response('Unable to update note with the given id,try sending the correct id',
+                        status=status.HTTP_400_BAD_REQUEST)
+    else:
+        return Response("Updated Note Successfully", status=status.HTTP_200_OK)
 
 
 @api_view(['DELETE'])
 def deleteAll(request):
     deleteAllRecords()
-    return Response("Deleted")
+    return Response("Deleted", status=status.HTTP_200_OK)
 
 
 @api_view(['DELETE'])
 def deleteByID(request, id):
-    deleteNoteByID(id)
-    return Response("Deleted Note")
+    message = deleteNoteByID(id)
+    if message == -1:
+        return Response("Unable to find note with given ID", status=status.HTTP_400_BAD_REQUEST)
+    else:
+        return Response(message, status=status.HTTP_200_OK)
 
 
 @api_view(['GET'])
 def getNotesVersionHistory(request):
-    versions = getAllVersionsNoteByID()
+    versions = getAllVersionsNotes()
     print(versions)
     return Response(versions)
+
+
+@api_view(['GET'])
+def getNotesVersionHistoryByID(request, id):
+    versions = getVersionNotesByID(id)
+    print(versions)
+    if versions == -1:
+        return Response("Unable to find version with the given not ID, try entering a valid ID",
+                        status=status.HTTP_400_BAD_REQUEST)
+    else:
+        return Response(versions, status=status.HTTP_200_OK)
