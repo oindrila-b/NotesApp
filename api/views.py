@@ -8,6 +8,8 @@ from django.contrib.auth.decorators import login_required
 from .forms import UserCreationForm, LoginForm
 from django.contrib.auth import authenticate, login, logout
 
+logged_user = "name"
+
 
 def user_signup(request):
     if request.method == 'POST':
@@ -38,7 +40,8 @@ def user_login(request):
 @login_required(login_url='/login')
 @api_view(['GET'])
 def getAllNotes(request):
-    all_notes = getAllNotesFromDB()
+    print(request.user.username)
+    all_notes = getAllNotesFromDB(request.user.username)
     return Response(all_notes)
 
 
@@ -55,7 +58,7 @@ def getNoteByID(request, id):
 @login_required(login_url='/login')
 @api_view(['POST'])
 def addNote(request):
-    response = addNewNote(request.data)
+    response = addNewNote(request.user.username, request.data)
     if response == 1:
         return Response("Successfully Created New Note", status=status.HTTP_200_OK)
     else:
@@ -65,7 +68,7 @@ def addNote(request):
 @login_required(login_url='/login')
 @api_view(['PATCH'])
 def updateNote(request, id):
-    response = updateNoteData(request.data, id)
+    response = updateNoteData(request.data, id, request.user.username)
     if response == -1:
         return Response('Unable to update note with the given id,try sending the correct id',
                         status=status.HTTP_400_BAD_REQUEST)
